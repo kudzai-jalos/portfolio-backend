@@ -3,23 +3,15 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const { validationResult } = require("express-validator");
-const res = require("express/lib/response");
 
-const handleError = (err, next) => {
-  if (!err.code) {
-    err.code = 500;
-  }
-  next(err);
-};
-
-exports.postLogin = () => {
+exports.postLogin = (req,res,next) => {
   const { email, password } = req.body;
 
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
     const error = new Error("Validation failed");
-    error.code = 404;
+    error.code = 422;
     error.data = errors.array();
     throw error;
   }
@@ -42,7 +34,7 @@ exports.postLogin = () => {
             {
               email,
             },
-            process.env.JWT_TOKEN,
+            process.env.JWT_SECRET,
             {
               expiresIn: "1h",
             }
@@ -56,11 +48,21 @@ exports.postLogin = () => {
       }
     })
     .catch((err) => {
-      handleError(err);
+      next(err);
     });
 };
 
 exports.postSignup = (req, res, next) => {
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    const error = new Error("Validation failed");
+    error.code = 422;
+    error.data = errors.array();
+    throw error;
+  }
+
   const { email, password } = req.body;
   // Check if user exists
   User.findOne({ email })
@@ -86,6 +88,6 @@ exports.postSignup = (req, res, next) => {
       }
     })
     .catch((err) => {
-      handleError(err);
+      next(err);
     });
 };

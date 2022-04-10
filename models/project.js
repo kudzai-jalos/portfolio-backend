@@ -5,7 +5,7 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  subtitle: {
+  description: {
     type: String,
     required: true,
   },
@@ -13,6 +13,13 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  github: {
+    type: String,
+    required: true,
+  },
+  liveUrl: String, 
+},{
+  timestamps:true
 });
 
 const Project = mongoose.model("project", projectSchema);

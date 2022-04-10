@@ -1,0 +1,39 @@
+.form {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+
+.form-control input {
+  margin-top: 0.5rem;
+  padding: 0.3rem;
+  background-color: transparent;
+  border: 2px solid var(--color-secondary);
+  border-radius: 8px;
+  color: inherit;
+}
+
+.form-actions {
+  text-align: center;
+}
+
+.btn {
+  background-color: transparent;
+  color: var(--color-secondary);
+  border: 2px solid var(--color-secondary);
+  border-radius: 20px;
+  padding: 0.4rem 3rem;
+  transition: 0.4s ease-in-out;
+  font-size: 1.125rem;
+}
+
+.btn:hover,
+.btn:active {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+}
