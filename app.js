@@ -12,7 +12,6 @@ const rootRouter = require("./routes/index");
 const authRouter = require("./routes/auth");
 const adminRouter = require("./routes/admin")
 // Configure app
-app.use(express.static("public"))
 app.use(bodyParser.json());
 app.use(cors());
 
