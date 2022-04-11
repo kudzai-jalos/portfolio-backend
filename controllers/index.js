@@ -1,23 +1,7 @@
 // controllers
 const { validationResult } = require("express-validator");
-const nodemailer = require("nodemailer");
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
-
-transporter.verify((error, success) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Server is ready to take our messages");
-  }
-});
+const transporter = require("../util/smtp");
 
 const Project = require("../models/project");
 const Skill = require("../models/skill");
@@ -68,7 +52,6 @@ exports.getSkills = (req, res, next) => {
 };
 
 exports.postSendMessage = (req, res, next) => {
-
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
