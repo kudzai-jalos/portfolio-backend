@@ -89,7 +89,7 @@ exports.postSignup = (req, res, next) => {
             });
             // TODO replace domain with live domain
             const verificationURL =
-              "http://localhost:3000/auth/accounts/verify/" + token;
+              process.env.MAIN_CLIENT+"/auth/accounts/verify/" + token;
             const rejectionURL =
               "http://localhost:8000/auth/accounts/reject/" + token;
             const buttonStyles =
