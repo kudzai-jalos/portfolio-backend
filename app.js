@@ -21,7 +21,7 @@ app.use("/auth",authRouter);
 app.use("/admin",adminRouter)
 
 app.use((error, req, res, next) => {
-  console.log(error);
+  //console.log(error);
   if (!error.code) {
     error.code = 500;
     error.originalMessage= error.message;
@@ -41,7 +41,7 @@ mongoose
   .then((result) => {
     const PORT = process.env.PORT || 8000;
     app.listen(PORT, () => {
-      console.log("Server running on port " + PORT);
+      //console.log("Server running on port " + PORT);
     });
   })
   .catch((err) => {
