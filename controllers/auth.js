@@ -73,7 +73,9 @@ exports.postSignup = (req, res, next) => {
   User.findOne({ email })
     .then((user) => {
       if (user) {
-        return res.status(422).json("User already exists");
+        const error = new Error("User already exists");
+        error.code = 409;
+        throw error;
       } else {
         return bcrypt
           .hash(password, 12)
@@ -89,9 +91,10 @@ exports.postSignup = (req, res, next) => {
             });
             // TODO replace domain with live domain
             const verificationURL =
-              process.env.MAIN_CLIENT+"/auth/accounts/verify/" + token;
+              process.env.MAIN_CLIENT + "/auth/accounts/verify/" + token;
             const rejectionURL =
-              "https://kudzai-jalos-api.herokuapp.com/auth/accounts/reject/" + token;
+              "https://kudzai-jalos-api.herokuapp.com/auth/accounts/reject/" +
+              token;
             const buttonStyles =
               "color: #000000;padding: .5rem 2rem;background-color: #ffffff;border:2px solid #000000;";
             transporter.sendMail({
@@ -160,7 +163,7 @@ exports.postConfirmAccount = (req, res, next) => {
     });
 };
 
-exports.deleteRejectAccount = (req,res,next) => {
+exports.deleteRejectAccount = (req, res, next) => {
   const { token } = req.params;
 
   const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
