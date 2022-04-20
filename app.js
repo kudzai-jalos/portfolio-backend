@@ -4,34 +4,47 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-
 const app = express();
 
 // import routers
 const rootRouter = require("./routes/index");
 const authRouter = require("./routes/auth");
-const adminRouter = require("./routes/admin")
+const adminRouter = require("./routes/admin");
 // Configure app
 app.use(bodyParser.json());
-app.use(cors({
-  origin:"https://kudzaijalos.netlify.app https://main--kudzaijalos.netlify.app"
-}));
+
+const whitelist = [
+  "https://kudzaijalos.netlify.app",
+  "https://main--kudzaijalos.netlify.app",
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (whitelist.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
 
 // routers
 app.use(rootRouter);
-app.use("/auth",authRouter);
-app.use("/admin",adminRouter)
+app.use("/auth", authRouter);
+app.use("/admin", adminRouter);
 
 app.use((error, req, res, next) => {
   //console.log(error);
   if (!error.code) {
     error.code = 500;
-    error.originalMessage= error.message;
-    error.message = "Something went wrong..."
+    error.originalMessage = error.message;
+    error.message = "Something went wrong...";
   }
   res.status(error.code).json({
     message: error.message,
-    data:error.data
+    data: error.data,
   });
 });
 
