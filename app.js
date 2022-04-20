@@ -14,7 +14,7 @@ const adminRouter = require("./routes/admin")
 // Configure app
 app.use(bodyParser.json());
 app.use(cors({
-  origin:"https://kudzaijalos.netlify.app"
+  origin:"https://kudzaijalos.netlify.app https://main--kudzaijalos.netlify.app"
 }));
 
 // routers
