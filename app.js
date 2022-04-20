@@ -13,7 +13,9 @@ const authRouter = require("./routes/auth");
 const adminRouter = require("./routes/admin")
 // Configure app
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+  origin:"https://kudzaijalos.netlify.app"
+}));
 
 // routers
 app.use(rootRouter);
