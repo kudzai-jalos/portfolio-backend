@@ -93,7 +93,7 @@ exports.postSignup = (req, res, next) => {
             const verificationURL =
               process.env.MAIN_CLIENT + "/auth/accounts/verify/" + token;
             const rejectionURL =
-              "https://kudzai-jalos-api.herokuapp.com/auth/accounts/reject/" +
+              "/auth/accounts/reject/" +
               token;
             const buttonStyles =
               "color: #000000;padding: .5rem 2rem;background-color: #ffffff;border:2px solid #000000;";

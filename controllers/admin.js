@@ -46,8 +46,8 @@ exports.putEditProject = (req, res, next) => {
     throw error;
   }
 
-  const { projectId, data } = req.body;
-  const { title, description, imageUrl, github, liveUrl } = data;
+  const { projectId } = req.params;
+  const { title, description, imageUrl, github, liveUrl } = req.body;
 
   Project.findById(projectId)
     .then((project) => {
