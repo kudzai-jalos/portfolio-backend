@@ -51,7 +51,7 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}/${process.env.MONGODB_DB}?retryWrites=true&w=majority`
+    `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@cluster0.zrgns.mongodb.net/portfolio?retryWrites=true&w=majority`
     // "mongodb://localhost:27017/"+process.env.MONGODB_DB
   )
   .then((result) => {
@@ -61,5 +61,6 @@ mongoose
     });
   })
   .catch((err) => {
+    console.log("Failed to connect to mongodb")
     throw err;
   });
