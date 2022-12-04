@@ -15,9 +15,9 @@ const applyCorsHeaders = (res) => {
   ];
 
   res.setHeader("Access-Control-Allow-Credentials", true);
-  // res.setHeader('Access-Control-Allow-Origin', '*')
-  if (whitelist.includes(req.headers.origin))
-    res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  // if (whitelist.includes(req.headers.origin))
+  //   res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET,OPTIONS,PATCH,DELETE,POST,PUT"

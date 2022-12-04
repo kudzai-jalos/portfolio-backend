@@ -12,15 +12,15 @@ app.use(
   corsMiddleware
 );
 
-const { createProxyMiddleware } = require('http-proxy-middleware');
-app.use('/api', createProxyMiddleware({ 
-    target: 'https://kudzai-jalos-api.herokuapp.com/', //original url
-    changeOrigin: true, 
-    //secure: false,
-    onProxyRes: function (proxyRes, req, res) {
-       proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-    }
-}));
+// const { createProxyMiddleware } = require('http-proxy-middleware');
+// app.use('/api', createProxyMiddleware({ 
+//     target: 'https://kudzai-jalos-api.herokuapp.com/', //original url
+//     changeOrigin: true, 
+//     //secure: false,
+//     onProxyRes: function (proxyRes, req, res) {
+//        proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+//     }
+// }));
 
 // import routers
 const rootRouter = require("./routes/index");
