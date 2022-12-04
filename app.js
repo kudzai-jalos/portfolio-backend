@@ -38,11 +38,16 @@ const adminRouter = require("./routes/admin");
 app.use(bodyParser.json());
 
 
-
 // routers
 app.use(rootRouter);
 app.use("/auth", authRouter);
 app.use("/admin", adminRouter);
+
+app.use("/",(req,res,next)=>{
+  res.status(200).json({
+    message:"Alive"
+  })
+})
 
 app.use((error, req, res, next) => {
   console.log(error);
@@ -72,3 +77,5 @@ mongoose
     console.log("Failed to connect to mongodb")
     throw err;
   });
+
+  module.exports = app;
