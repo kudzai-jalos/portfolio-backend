@@ -2,25 +2,33 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-// const cors = require("cors");
+const cors = require("cors");
 
 const app = express();
 
-const corsMiddleware = require("./middleware/cors-middleware");
+// const corsMiddleware = require("./middleware/cors-middleware");
+
+// app.use(
+//   corsMiddleware
+// );
+
+const whitelist = [
+  "https://kudzaijalos.netlify.app",
+  "https://main--kudzaijalos.netlify.app",
+  // "http://localhost:3000",
+];
 
 app.use(
-  corsMiddleware
+  cors({
+    origin: (origin, callback) => {
+      if (whitelist.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
 );
-
-// const { createProxyMiddleware } = require('http-proxy-middleware');
-// app.use('/api', createProxyMiddleware({ 
-//     target: 'https://kudzai-jalos-api.herokuapp.com/', //original url
-//     changeOrigin: true, 
-//     //secure: false,
-//     onProxyRes: function (proxyRes, req, res) {
-//        proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-//     }
-// }));
 
 // import routers
 const rootRouter = require("./routes/index");
