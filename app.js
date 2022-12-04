@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 const whitelist = [
   "https://kudzaijalos.netlify.app",
   "https://main--kudzaijalos.netlify.app",
-  "http://localhost:3000",
+  // "http://localhost:3000",
 ];
 
 app.use(
