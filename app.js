@@ -2,26 +2,14 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const cors = require("cors");
+// const cors = require("cors");
 
 const app = express();
 
-const whitelist = [
-  "https://kudzaijalos.netlify.app",
-  "https://main--kudzaijalos.netlify.app",
-  // "http://localhost:3000",
-];
+const corsMiddleware = require("./middleware/cors-middleware");
 
 app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (whitelist.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-  })
+  corsMiddleware
 );
 
 const { createProxyMiddleware } = require('http-proxy-middleware');
