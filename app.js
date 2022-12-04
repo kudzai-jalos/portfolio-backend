@@ -6,6 +6,32 @@ const cors = require("cors");
 
 const app = express();
 
+const whitelist = [
+  "https://kudzaijalos.netlify.app",
+  "https://main--kudzaijalos.netlify.app",
+  // "http://localhost:3000",
+];
+
+app.use(function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+});
+
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       if (whitelist.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//   })
+// );
+
 // import routers
 const rootRouter = require("./routes/index");
 const authRouter = require("./routes/auth");
@@ -13,17 +39,7 @@ const adminRouter = require("./routes/admin");
 // Configure app
 app.use(bodyParser.json());
 
-const whitelist = [
-  "https://kudzaijalos.netlify.app",
-  "https://main--kudzaijalos.netlify.app",
-  // "http://localhost:3000",
-];
 
-app.use(
-  cors({
-    origin: "https://kudzaijalos.netlify.app",
-  })
-);
 
 // routers
 app.use(rootRouter);
