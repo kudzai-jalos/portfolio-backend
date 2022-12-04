@@ -21,13 +21,7 @@ const whitelist = [
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (whitelist.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: "https://kudzaijalos.netlify.app",
   })
 );
 
